@@ -10,7 +10,6 @@ jobs:
   deps:
     name: "Fetch & Compile dependencies"
     runs-on: ubuntu-18.04
-    env:
     steps:
     - uses: actions/checkout@v2
 
