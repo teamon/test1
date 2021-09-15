@@ -36,8 +36,15 @@ jobs:
   deploy_dev:
     name: "Deploy to Dev"
     runs-on: ubuntu-18.04
-    # TODO: Uncomment after testing
-    # if: github.ref == 'refs/heads/master'
+    environment: dev
+    needs: [build, test]
+    steps:
+    - uses: actions/checkout@v2
+
+  deploy_prod:
+    name: "Deploy to Prod"
+    runs-on: ubuntu-18.04
+    environment: prod
     needs: [build, test]
     steps:
     - uses: actions/checkout@v2
