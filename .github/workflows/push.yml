@@ -1,0 +1,44 @@
+name: Build, test & deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deps:
+    name: "Fetch & Compile dependencies"
+    runs-on: ubuntu-18.04
+    env:
+    steps:
+    - uses: actions/checkout@v2
+
+  test:
+    name: "Run tests"
+    runs-on: ubuntu-18.04
+    needs: deps
+    steps:
+    - uses: actions/checkout@v2
+
+  format:
+    name: "Check format"
+    runs-on: ubuntu-18.04
+    needs: deps
+    steps:
+    - uses: actions/checkout@v2
+
+  build:
+    name: "Build docker image"
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+
+  deploy_dev:
+    name: "Deploy to Dev"
+    runs-on: ubuntu-18.04
+    # TODO: Uncomment after testing
+    # if: github.ref == 'refs/heads/master'
+    needs: [build, test]
+    steps:
+    - uses: actions/checkout@v2
